@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Logout</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding: 50px;
+      }
+      a {
+        color: #4caf50;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>You have been logged out</h1>
+    <p>
+      <a href="{% url 'login' %}">Login again</a> or
+      <a href="/">Go to homepage</a>
+    </p>
+  </body>
+</html>
