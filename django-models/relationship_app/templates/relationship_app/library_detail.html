@@ -31,6 +31,18 @@
       li:last-child {
         border-bottom: none;
       }
+      .library-detail {
+        margin: 20px;
+        font-family: Arial, sans-serif;
+      }
+      .book-item {
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+      }
+      .back-link {
+        display: block;
+        margin-top: 20px;
+      }
     </style>
   </head>
   <body>
@@ -48,5 +60,18 @@
       {% endfor %}
     </ul>
     <a href="{% url 'list_books' %}">View all books</a>
+    <div class="library-detail">
+      <h1>{{ library.name }}</h1>
+      <h2>Available Books:</h2>
+      {% for book in books %}
+      <div class="book-item">
+        <strong>{{ book.title }}</strong> by {{ book.author.name }} {% if
+        book.publication_year %} ({{ book.publication_year }}) {% endif %}
+      </div>
+      {% empty %}
+      <div class="book-item">This library has no books.</div>
+      {% endfor %}
+      <a href="{% url 'list_books' %}" class="back-link">← Back to all books</a>
+    </div>
   </body>
 </html>
