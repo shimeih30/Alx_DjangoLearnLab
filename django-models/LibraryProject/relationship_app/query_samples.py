@@ -1,5 +1,6 @@
 import os
 import django
+from django.core.exceptions import ObjectDoesNotExist
 
 # Set up Django environment
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'LibraryProject.settings')
@@ -8,6 +9,7 @@ django.setup()
 from relationship_app.models import Author, Book, Library, Librarian
 
 def create_sample_data():
+    """Create test data for all models"""
     # Clear existing data
     Author.objects.all().delete()
     Book.objects.all().delete()
@@ -24,58 +26,59 @@ def create_sample_data():
     Book.objects.create(title="A Game of Thrones", author=author2)
     
     # Create libraries
-    central_library = Library.objects.create(name="Central Library")
-    central_library.books.set(Book.objects.all())
+    central = Library.objects.create(name="Central Library")
+    central.books.set(Book.objects.all())
     
-    branch_library = Library.objects.create(name="Branch Library")
-    branch_library.books.set(Book.objects.filter(author=author1))
+    branch = Library.objects.create(name="Branch Library")
+    branch.books.set(Book.objects.filter(author=author1))
     
     # Assign librarians
-    Librarian.objects.create(name="Ms. Smith", library=central_library)
-    Librarian.objects.create(name="Mr. Johnson", library=branch_library)
+    Librarian.objects.create(name="Ms. Smith", library=central)
+    Librarian.objects.create(name="Mr. Johnson", library=branch)
     
-    return author1, central_library
+    return author1, central
 
 def run_queries():
+    """Execute and demonstrate all required queries"""
     print("=== Creating Sample Data ===")
     author, library = create_sample_data()
     
-    print("\n=== 1. Query all books by a specific author ===")
-    author_name = "J.K. Rowling"
-    try:
-        author = Author.objects.get(name=author_name)
-        books_by_author = author.books.all()
-        print(f"Books by {author_name}:")
-        for book in books_by_author:
-            print(f"- {book.title}")
-    except Author.DoesNotExist:
-        print(f"Author '{author_name}' not found")
+    # 1. Query all books by a specific author using filter()
+    print("\n=== 1. Books by author using filter() ===")
+    books_filter = Book.objects.filter(author=author)
+    print(f"Books by {author.name} (using filter):")
+    for book in books_filter:
+        print(f"- {book.title}")
     
-    print("\n=== 2. List all books in a library ===")
-    library_name = "Central Library"
-    try:
-        library = Library.objects.get(name=library_name)
-        print(f"Books in {library_name}:")
-        for book in library.books.all():
-            print(f"- {book.title} (by {book.author.name})")
-    except Library.DoesNotExist:
-        print(f"Library '{library_name}' not found")
+    # 2. Same query using related_name
+    print("\n=== 2. Books by author using related_name ===")
+    books_related = author.books.all()
+    print(f"Books by {author.name} (using related_name):")
+    for book in books_related:
+        print(f"- {book.title}")
     
-    print("\n=== 3. Retrieve the librarian for a library ===")
+    # 3. List all books in a library
+    print("\n=== 3. Books in library ===")
+    library_books = library.books.all()
+    print(f"Books in {library.name}:")
+    for book in library_books:
+        print(f"- {book.title} by {book.author.name}")
+    
+    # 4. Retrieve librarian for a library
+    print("\n=== 4. Librarian for library ===")
     try:
         librarian = library.librarian
         print(f"Librarian for {library.name}: {librarian.name}")
-    except Librarian.DoesNotExist:
-        print(f"No librarian assigned to {library.name}")
+    except ObjectDoesNotExist:
+        print(f"No librarian for {library.name}")
     
-    print("\n=== 4. Additional Query: Get author by name ===")
-    author_name = "George R.R. Martin"
+    # 5. Get author by name
+    print("\n=== 5. Get author by name ===")
     try:
-        author = Author.objects.get(name=author_name)
-        print(f"Found author: {author.name}")
-        print(f"Number of books: {author.books.count()}")
-    except Author.DoesNotExist:
-        print(f"Author '{author_name}' not found")
+        found_author = Author.objects.get(name="George R.R. Martin")
+        print(f"Found author: {found_author.name}")
+    except ObjectDoesNotExist:
+        print("Author not found")
 
 if __name__ == "__main__":
     run_queries()
