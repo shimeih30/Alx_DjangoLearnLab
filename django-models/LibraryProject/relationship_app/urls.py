@@ -5,3 +5,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('relationship_app.urls')),
 ]
+from .views import list_books, 
+LibraryDetailView
