@@ -64,3 +64,4 @@ class LibraryDetailView(DetailView):
         # Prefetch related books with their authors
         context['books'] = self.object.books.all().select_related('author')
         return context
+    from .models import Library
