@@ -37,3 +37,10 @@ class Librarian(models.Model):
     
     def __str__(self):
         return f"{self.name} (Librarian at {self.library.name})"
+
+class Book(models.Model):
+    # ... existing fields ...
+    publication_year = models.PositiveIntegerField(null=True, blank=True)
+    
+    def __str__(self):
+        return f"{self.title} (by {self.author.name})"
