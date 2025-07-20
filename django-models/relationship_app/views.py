@@ -65,3 +65,4 @@ class LibraryDetailView(DetailView):
         context['books'] = self.object.books.all().select_related('author')
         return context
     from .models import Library
+    from django.views.generic.detail import DetailView
