@@ -84,3 +84,51 @@ def register(request):
     return render(request, 'registration/register.html', {'form': form})
 
 from django.contrib.auth import login
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required, user_passes_test
+from .models import UserProfile
+
+def check_role(user, allowed_roles):
+    try:
+        return user.userprofile.role in allowed_roles
+    except UserProfile.DoesNotExist:
+        return False
+
+def admin_check(user):
+    return check_role(user, ['ADMIN'])
+
+def librarian_check(user):
+    return check_role(user, ['LIBRARIAN', 'ADMIN'])  # Admins can access librarian views
+
+def member_check(user):
+    return check_role(user, ['MEMBER', 'LIBRARIAN', 'ADMIN'])  # All roles can access member views
+
+@login_required
+@user_passes_test(admin_check, login_url='/accounts/login/')
+def admin_view(request):
+    return render(request, 'relationship_app/admin_view.html')
+
+@login_required
+@user_passes_test(librarian_check, login_url='/accounts/login/')
+def librarian_view(request):
+    return render(request, 'relationship_app/librarian_view.html')
+
+@login_required
+@user_passes_test(member_check, login_url='/accounts/login/')
+def member_view(request):
+    return render(request, 'relationship_app/member_view.html')
+
+from .models import UserProfile
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            # Set default role (or you can add a role field to the form)
+            UserProfile.objects.create(user=user, role='MEMBER')
+            messages.success(request, 'Account created successfully!')
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+    return render(request, 'registration/register.html', {'form': form})
