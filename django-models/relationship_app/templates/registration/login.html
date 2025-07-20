@@ -1,48 +1,20 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <title>Login</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        max-width: 400px;
-        margin: 0 auto;
-        padding: 20px;
-      }
-      form {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-      }
-      input {
-        padding: 8px;
-        font-size: 16px;
-      }
-      button {
-        padding: 10px;
-        background: #4caf50;
-        color: white;
-        border: none;
-        cursor: pointer;
-      }
-      .error {
-        color: red;
-      }
-    </style>
+    <!-- Verify static files are loaded -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
   </head>
   <body>
     <h1>Login</h1>
-    {% if form.errors %}
-    <p class="error">
-      Your username and password didn't match. Please try again.
-    </p>
-    {% endif %}
+    <!-- Check for CSRF token and form rendering -->
     <form method="post">
       {% csrf_token %} {{ form.as_p }}
       <button type="submit">Login</button>
     </form>
-    <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+    <!-- Verify register link exists -->
+    <a href="{% url 'register' %}">Register</a>
   </body>
 </html>
