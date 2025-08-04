@@ -16,3 +16,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),  # ✅ This line is required to include api.urls
 ]
+["api.urls"]
