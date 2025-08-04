@@ -9,3 +9,4 @@ class Book(models.Model):
     def __str__(self):
         return f"{self.title} by {self.author} ({self.publication_year})"
 ["class CustomUser(AbstractUser):", "date_of_birth", "profile_photo"]
+["class CustomUserManager(BaseUserManager):", "create_user", "create_superuser"]
