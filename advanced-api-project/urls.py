@@ -7,3 +7,4 @@ urlpatterns = [
 ]
 "books/update", "books/delete"
 ["from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated"]
+["api.urls"]
