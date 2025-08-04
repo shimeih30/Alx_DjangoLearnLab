@@ -6,3 +6,4 @@ urlpatterns = [
     path('api/', include('api.urls')),  # 👈 Route all API calls through /api/
 ]
 "books/update", "books/delete"
+["from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated"]

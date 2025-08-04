@@ -12,3 +12,4 @@ urlpatterns = [
     path('books/<int:pk>/delete/', BookDeleteView.as_view(), name='book-delete'),
 ]
 "books/update", "books/delete"
+["from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated"]
