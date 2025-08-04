@@ -1,0 +1,14 @@
+{% extends "base.html" %} {% block content %}
+<div class="admin-dashboard">
+  <h1>Admin Dashboard</h1>
+  <p>Welcome, {{ user.username }} (Admin)</p>
+  <div class="admin-features">
+    <h2>Admin Features:</h2>
+    <ul>
+      <li>User Management</li>
+      <li>System Configuration</li>
+      <li>All Library Functions</li>
+    </ul>
+  </div>
+</div>
+{% endblock %}

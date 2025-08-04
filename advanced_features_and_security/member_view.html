@@ -1,0 +1,14 @@
+{% extends "base.html" %} {% block content %}
+<div class="member-dashboard">
+  <h1>Member Dashboard</h1>
+  <p>Welcome, {{ user.username }} (Member)</p>
+  <div class="member-features">
+    <h2>Member Features:</h2>
+    <ul>
+      <li>View Available Books</li>
+      <li>Borrow Books</li>
+      <li>View Borrowing History</li>
+    </ul>
+  </div>
+</div>
+{% endblock %}

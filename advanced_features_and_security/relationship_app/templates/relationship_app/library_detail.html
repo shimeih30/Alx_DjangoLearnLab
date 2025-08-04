@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{{ library.name }} Details</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      h1 {
+        color: #2c3e50;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 10px;
+      }
+      h2 {
+        color: #34495e;
+        margin-top: 20px;
+      }
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+      li {
+        padding: 8px 0;
+        border-bottom: 1px solid #eee;
+      }
+      li:last-child {
+        border-bottom: none;
+      }
+      .library-detail {
+        margin: 20px;
+        font-family: Arial, sans-serif;
+      }
+      .book-item {
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+      }
+      .back-link {
+        display: block;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>{{ library.name }}</h1>
+    <h2>Books in this Library</h2>
+    <ul>
+      {% for book in library.books.all %}
+      <li>
+        <strong>{{ book.title }}</strong> by {{ book.author.name }} {% if
+        book.publication_year %} (Published {{ book.publication_year }}) {%
+        endif %}
+      </li>
+      {% empty %}
+      <li>No books in this library.</li>
+      {% endfor %}
+    </ul>
+    <a href="{% url 'list_books' %}">View all books</a>
+    <div class="library-detail">
+      <h1>{{ library.name }}</h1>
+      <h2>Available Books:</h2>
+      {% for book in books %}
+      <div class="book-item">
+        <strong>{{ book.title }}</strong> by {{ book.author.name }} {% if
+        book.publication_year %} ({{ book.publication_year }}) {% endif %}
+      </div>
+      {% empty %}
+      <div class="book-item">This library has no books.</div>
+      {% endfor %}
+      <a href="{% url 'list_books' %}" class="back-link">← Back to all books</a>
+    </div>
+  </body>
+</html>

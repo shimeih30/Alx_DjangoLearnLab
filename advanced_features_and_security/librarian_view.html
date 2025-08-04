@@ -1,0 +1,14 @@
+{% extends "base.html" %} {% block content %}
+<div class="librarian-dashboard">
+  <h1>Librarian Dashboard</h1>
+  <p>Welcome, {{ user.username }} (Librarian)</p>
+  <div class="librarian-features">
+    <h2>Librarian Features:</h2>
+    <ul>
+      <li>Book Management</li>
+      <li>Member Services</li>
+      <li>Check-in/Check-out</li>
+    </ul>
+  </div>
+</div>
+{% endblock %}
