@@ -31,7 +31,10 @@ class AuthorSerializer(serializers.ModelSerializer):
         model = Author
         fields = ['id', 'name', 'books']
 
+
+
 """
 AuthorSerializer: Serializes Author instances and includes a nested list of books.
 BookSerializer: Serializes Book instances with custom validation for publication_year.
 """
+class BookSerializer(serializers.ModelSerializer)
