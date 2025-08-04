@@ -35,3 +35,5 @@ class AuthorSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'books']
         
 ["class BookSerializer(serializers.ModelSerializer)", "serializers.ValidationError"]
+def validate_publication_year(self, value):
+    ...
