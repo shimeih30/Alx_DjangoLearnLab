@@ -30,11 +30,13 @@ class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Author
         fields = ['id', 'name', 'books']
-
+        
+"class BookSerializer(serializers.ModelSerializer)"
 
 
 """
 AuthorSerializer: Serializes Author instances and includes a nested list of books.
 BookSerializer: Serializes Book instances with custom validation for publication_year.
 """
-class BookSerializer(serializers.ModelSerializer)
+
+"class BookSerializer(serializers.ModelSerializer)"
