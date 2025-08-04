@@ -38,3 +38,29 @@ class BookDeleteView(generics.DestroyAPIView):
     permission_classes = [permissions.IsAuthenticated]  # Only logged-in users can delete
 
 ["from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated"]
+
+from rest_framework import generics, permissions, filters
+from django_filters.rest_framework import DjangoFilterBackend
+from .models import Book
+from .serializers import BookSerializer
+
+
+class BookListView(generics.ListAPIView):
+    """
+    Returns a list of books with support for filtering, searching, and ordering.
+    """
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = [permissions.AllowAny]
+
+    # ✅ Enable filtering, searching, ordering
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    
+    # ✅ Filtering fields
+    filterset_fields = ['title', 'author', 'publication_year']
+
+    # ✅ Search fields
+    search_fields = ['title', 'author__name']
+
+    # ✅ Orderable fields
+    ordering_fields = ['title', 'publication_year']
