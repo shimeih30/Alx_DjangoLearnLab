@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'bookshelf',
     'relationship_app',
     'accounts',
-    'bookshelf.CustomUser'
+    'bookshelf.CustomUser',
+    'SECURE_SSL_REDIRECT',
 
 ]
 
@@ -132,4 +133,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = '/books/'
 LOGOUT_REDIRECT_URL = '/login/'
 ["bookshelf.CustomUser"]
-["SECURE_SSL_REDIRECT"]
+"SECURE_SSL_REDIRECT"
