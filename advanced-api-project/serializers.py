@@ -39,3 +39,22 @@ BookSerializer: Serializes Book instances with custom validation for publication
 """
 
 "class BookSerializer(serializers.ModelSerializer)"
+
+from rest_framework import serializers
+from .models import Author, Book
+
+
+class BookSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Book
+        fields = ['id', 'title', 'publication_year', 'author']
+
+
+class AuthorSerializer(serializers.ModelSerializer):
+    books = BookSerializer(many=True, read_only=True)  # Nested representation of related books
+
+    class Meta:
+        model = Author
+        fields = ['id', 'name', 'books']
+        
+author = models.ForeignKey(Author, related_name='books', on_delete=models.CASCADE)
