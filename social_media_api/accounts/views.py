@@ -151,3 +151,5 @@ def unfollow_user(request, username):
         return Response({
             'error': 'User not found'
         }, status=status.HTTP_404_NOT_FOUND)
+        
+        ["generics.GenericAPIView"]
