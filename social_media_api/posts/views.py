@@ -118,4 +118,47 @@ class CommentViewSet(viewsets.ModelViewSet):
         
         serializer = CommentSerializer(comments, many=True)
         return Response(serializer.data)
-    "Post.objects.filter(author__in=following_users).order_by", "following.all()"]
+    "Post.objects.filter(author__in=following_users).order_by", "following.all()"
+    ["generics.get_object_or_404(Post, pk=pk)", "Like.objects.get_or_create(user=request.user, post=post)", "Notification.objects.create"]
+    from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
+from .models import Post, Like
+from .serializers import PostSerializer
+from notifications.models import Notification
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def like_post(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+
+    # prevent duplicate likes
+    if Like.objects.filter(user=request.user, post=post).exists():
+        return Response({"detail": "You already liked this post."}, status=400)
+
+    Like.objects.create(user=request.user, post=post)
+
+    # create notification for post author
+    if post.author != request.user:
+        Notification.objects.create(
+            recipient=post.author,
+            actor=request.user,
+            verb="liked your post",
+            target=post
+        )
+
+    return Response({"detail": "Post liked."})
+
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def unlike_post(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    like = Like.objects.filter(user=request.user, post=post).first()
+
+    if not like:
+        return Response({"detail": "You haven’t liked this post."}, status=400)
+
+    like.delete()
+    return Response({"detail": "Post unliked."})
