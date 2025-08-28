@@ -1,0 +1,1 @@
+The API uses Django REST Framework's Token Authentication. After successful login or registration, include the token in the Authorization header:
