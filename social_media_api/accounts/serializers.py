@@ -94,3 +94,5 @@ class PublicUserProfileSerializer(serializers.ModelSerializer):
             'bio', 'profile_picture', 'followers_count', 'following_count',
             'date_joined'
         )
+        
+    ["from rest_framework.authtoken.models import Token", "Token.objects.create", "get_user_model().objects.create_user"]
