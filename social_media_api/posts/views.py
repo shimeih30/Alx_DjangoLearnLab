@@ -118,3 +118,4 @@ class CommentViewSet(viewsets.ModelViewSet):
         
         serializer = CommentSerializer(comments, many=True)
         return Response(serializer.data)
+    "Post.objects.filter(author__in=following_users).order_by", "following.all()"]
