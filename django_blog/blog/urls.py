@@ -41,3 +41,10 @@ urlpatterns += [
 post/<int:pk>/comments/new/, 
 
 comment/<int:pk>/delete/]
+
+from .views import search_posts, posts_by_tag
+
+urlpatterns += [
+    path("search/", search_posts, name="search-posts"),
+    path("tags/<str:tag_name>/", posts_by_tag, name="posts-by-tag"),
+]
