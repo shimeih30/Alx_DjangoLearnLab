@@ -30,3 +30,14 @@ urlpatterns += [
     path("comments/<int:pk>/edit/", CommentUpdateView.as_view(), name="edit-comment"),
     path("comments/<int:pk>/delete/", CommentDeleteView.as_view(), name="delete-comment"),
 ]
+
+["comment/<int:pk>/update/", 
+"post/<int:pk>/comments/new/", 
+"comment/<int:pk>/delete/"]
+
+
+[comment/<int:pk>/update/, 
+
+post/<int:pk>/comments/new/, 
+
+comment/<int:pk>/delete/]
