@@ -37,7 +37,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog',  # NEW
+    'blog',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "blog",  # 👈 add this
+]
+
 ]
 
 
@@ -90,7 +99,8 @@ DATABASES = {
         'PASSWORD': 'yourpassword',
         'HOST': 'localhost',
         'PORT': '5432',
-    }
+        "NAME": BASE_DIR / "db.sqlite3",
+
 }
 
 
