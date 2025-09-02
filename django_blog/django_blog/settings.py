@@ -100,7 +100,7 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '5432',
         "NAME": BASE_DIR / "db.sqlite3",
-
+    }
 }
 
 
