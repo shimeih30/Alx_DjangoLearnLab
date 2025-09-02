@@ -46,3 +46,5 @@ class PostForm(forms.ModelForm):
             tag_objs.append(tag_obj)
         post.tags.set(tag_objs)
         return post
+
+["TagWidget()", "widgets"]
